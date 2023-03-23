@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PipeMovement : MonoBehaviour
+namespace BirdGame
 {
-    [SerializeField] private float movementSpeed = 4f;
-    private const float DespawnPipeXPosition = -18f; //Left side of the camera
-
-    private void Update()
+    public class PipeMovement : MonoBehaviour
     {
-        if (BirdLife.isAlive())
+        [SerializeField] private float movementSpeed = 4f;
+        private const float DespawnPipeXPosition = -18f; //Left side of the camera
+
+        private void Update()
         {
-            if (transform.position.x <= DespawnPipeXPosition)
+            if (Manager.GameState == GameStateEnum.Flying)
             {
-                Destroy(transform.gameObject);
+                if (transform.position.x <= DespawnPipeXPosition)
+                {
+                    Destroy(transform.gameObject);
+                }
+                transform.position = new Vector2(transform.position.x - movementSpeed * Time.deltaTime, transform.position.y);
             }
-            transform.position = new Vector2(transform.position.x - movementSpeed * Time.deltaTime, transform.position.y);
         }
     }
 }

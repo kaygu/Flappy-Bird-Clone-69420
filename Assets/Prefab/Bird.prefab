@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 870288199540266490}
   - component: {fileID: 870288199540266491}
   - component: {fileID: 870288199540266486}
-  - component: {fileID: 870288199540266485}
   - component: {fileID: 870288199540266484}
   m_Layer: 0
   m_Name: Bird
@@ -78,8 +77,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 1165608784, guid: f168e51a21a80c748ab92386c83ad175, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 217312487, guid: 2eb536264b3d7da48a0d0dc785c1e63c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -149,18 +148,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b318cbdeb467a8d45865967c0933078e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &870288199540266485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870288199540266492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 003b12e7e4158884eb90b26443aa275d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pointsText: {fileID: 0}
