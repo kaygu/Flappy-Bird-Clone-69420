@@ -10,9 +10,7 @@ namespace BirdGame
     public class Bird : MonoBehaviour
     {
         private Animator _anim;
-        private bool _alive = true;
 
-        // points
         [SerializeField] private TMP_Text pointsText;
         private int points = 0;
 
@@ -21,7 +19,6 @@ namespace BirdGame
         {
             if (!Manager.Init()) return;
             _anim = GetComponent<Animator>();
-            
         }
 
         private void Update()
@@ -38,6 +35,7 @@ namespace BirdGame
                         Manager.GameState = GameStateEnum.Flying;
                         break;
                     case GameStateEnum.Dead:
+                        Manager.GameState = GameStateEnum.Waiting;
                         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                         break;
                     case GameStateEnum.Flying:
@@ -67,7 +65,6 @@ namespace BirdGame
         {
             Manager.GameState = GameStateEnum.Dead;
             _anim.SetTrigger("death");
-            _alive = false;
         }
     }
 

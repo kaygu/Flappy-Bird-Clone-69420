@@ -19,29 +19,23 @@ namespace BirdGame
 
         private void Update()
         {
-            switch (Manager.GameState)
+            if (Manager.GameState == GameStateEnum.Flying)
             {
-                case GameStateEnum.Waiting:
-                    if (_rb.bodyType == RigidbodyType2D.Dynamic) _rb.bodyType = RigidbodyType2D.Static;
-                    break;
-                case GameStateEnum.Dead:
-                    if (_rb.bodyType == RigidbodyType2D.Dynamic) _rb.bodyType = RigidbodyType2D.Static;
-                    break;
-                case GameStateEnum.Flying:
-                    if (_rb.bodyType == RigidbodyType2D.Static) _rb.bodyType = RigidbodyType2D.Dynamic;
+                if (_rb.bodyType == RigidbodyType2D.Static) _rb.bodyType = RigidbodyType2D.Dynamic;
 
-                    if (Input.GetButtonDown("Jump"))
-                    {
-                        _rb.velocity = Vector2.up * jumpSpeed;
-                        //if (rb.velocity.x > jumpSpeed) rb.velocity = Vector2.up * jumpSpeed; // cap maximum velocity
-                    }
+                if (Input.GetButtonDown("Jump"))
+                {
+                    _rb.velocity = Vector2.up * jumpSpeed;
+                }
 
-                    // Bird roatation
-                    float angle = Mathf.Atan2(_rb.velocity.y, forwardVelocity) * Mathf.Rad2Deg;
-                    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                    break;
+                // Bird roatation
+                float angle = Mathf.Atan2(_rb.velocity.y, forwardVelocity) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             }
-  
+            else
+            {
+                if (_rb.bodyType == RigidbodyType2D.Dynamic) _rb.bodyType = RigidbodyType2D.Static;
+            }
         }
     }
 }

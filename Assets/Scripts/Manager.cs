@@ -9,18 +9,40 @@ namespace BirdGame
         Waiting,
         Flying,
         Dead,
-        Invalid
+        Invalid,
+        Menu
+    }
 
+    public enum CanvasTypeEnum
+    {
+        Game,
+        MainMenu,
+        Settings,
+        BestScore
     }
     public static class Manager
     {
-        public static GameStateEnum GameState;
+        private static GameStateEnum _gameState;
+        public static GameStateEnum PreviousGameState { get; private set; }
 
         public static bool Init()
         {
             // Check textures & prefabs are not missing
             GameState = GameStateEnum.Waiting;
             return true;
+        }
+
+        public static GameStateEnum GameState
+        {
+            get
+            {
+                return _gameState;
+            }
+            set
+            {
+                PreviousGameState = _gameState;
+                _gameState = value;
+            }
         }
     }
 }
