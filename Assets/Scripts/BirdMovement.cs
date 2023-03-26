@@ -11,6 +11,7 @@ namespace BirdGame
 
         private float jumpSpeed = 7f;
         private const float forwardVelocity = 5f;
+        private Vector2 _previousVelocity;
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -21,7 +22,11 @@ namespace BirdGame
         {
             if (Manager.GameState == GameStateEnum.Flying)
             {
-                if (_rb.bodyType == RigidbodyType2D.Static) _rb.bodyType = RigidbodyType2D.Dynamic;
+                if (_rb.bodyType == RigidbodyType2D.Static)
+                {
+                    _rb.bodyType = RigidbodyType2D.Dynamic;
+                    _rb.velocity = _previousVelocity;
+                }
 
                 if (Input.GetButtonDown("Jump"))
                 {
@@ -34,7 +39,11 @@ namespace BirdGame
             }
             else
             {
-                if (_rb.bodyType == RigidbodyType2D.Dynamic) _rb.bodyType = RigidbodyType2D.Static;
+                if (_rb.bodyType == RigidbodyType2D.Dynamic)
+                {
+                    _previousVelocity = _rb.velocity;
+                    _rb.bodyType = RigidbodyType2D.Static;
+                }
             }
         }
     }
