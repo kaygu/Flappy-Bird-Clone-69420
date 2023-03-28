@@ -11,7 +11,7 @@ namespace BirdGame
         public static CanvasManager Instance { get; private set; }
 
         private List<CanvasController> _canvasControllerList;
-        private CanvasController _lastActiveCanvas;
+        public CanvasController ActiveCanvas;
 
         private void Awake()
         {
@@ -30,15 +30,15 @@ namespace BirdGame
 
         public void SwichCanvas(CanvasTypeEnum _type)
         {
-            if (_lastActiveCanvas != null)
+            if (ActiveCanvas != null)
             {
-                DisableCanvas(_lastActiveCanvas);
+                DisableCanvas(ActiveCanvas);
             }
             CanvasController desiredCanvas = _canvasControllerList.Find(x => x.CanvasType == _type);
             if (desiredCanvas != null)
             {
                 EnableCanvas(desiredCanvas);
-                _lastActiveCanvas = desiredCanvas;
+                ActiveCanvas = desiredCanvas;
             } else
             {
                 Debug.LogWarning(string.Format("Canvas {0} was not found!", _type));

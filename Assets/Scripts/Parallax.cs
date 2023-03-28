@@ -6,7 +6,8 @@ namespace BirdGame
 {
     public class Parallax : MonoBehaviour
     {
-        [SerializeField] private float parallaxEffect;
+        [SerializeField] private float _parallaxEffect;
+        [SerializeField] private bool _moveWhenPaused = false;
         private float speed = 0;
 
         private float startpos;
@@ -20,9 +21,9 @@ namespace BirdGame
 
         void FixedUpdate()
         {
-            if (Manager.GameState == GameStateEnum.Flying)
+            if (Manager.GameState == GameStateEnum.Flying || _moveWhenPaused)
             {
-                float dist = speed * parallaxEffect;
+                float dist = speed * _parallaxEffect;
                 transform.position = new Vector3(startpos + dist, transform.position.y, transform.position.z);
 
                 // repeat background

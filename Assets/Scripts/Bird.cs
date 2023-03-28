@@ -10,6 +10,7 @@ namespace BirdGame
     public class Bird : MonoBehaviour
     {
         private Animator _anim;
+        private AudioSource _deathSound;
 
         [SerializeField] private TMP_Text pointsText;
         private int points = 0;
@@ -19,14 +20,19 @@ namespace BirdGame
         {
             if (!Manager.Init()) return;
             _anim = GetComponent<Animator>();
+            _deathSound = GetComponent<AudioSource>();
         }
 
         private void Update()
         {
-            if (transform.position.y > 5f || transform.position.y < -5f)
+            if (Manager.GameState == GameStateEnum.Flying)
             {
-                Die();
+                if (transform.position.y > 5f || transform.position.y < -5f)
+                {
+                    Die();
+                }
             }
+
             if (Input.GetButtonDown("Jump"))
             {
                 switch (Manager.GameState)
@@ -64,6 +70,7 @@ namespace BirdGame
         private void Die()
         {
             Manager.GameState = GameStateEnum.Dead;
+            _deathSound.Play();
             _anim.SetTrigger("death");
         }
     }
