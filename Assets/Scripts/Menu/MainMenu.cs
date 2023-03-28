@@ -7,16 +7,17 @@ namespace BirdGame
     public class MainMenu : MonoBehaviour
     {
         private CanvasManager _canvasManager;
+        private MenuManager _menuManager;
         private void Start()
         {
             _canvasManager = CanvasManager.Instance;
+            _menuManager = MenuManager.Instance;
         }
         public void Resume()
         {
             if (Manager.GameState == GameStateEnum.Menu)
             {
-                Manager.GameState = Manager.PreviousGameState;
-                _canvasManager.SwichCanvas(CanvasTypeEnum.Game);
+                _menuManager.CloseMenu();
             }
             else
             {
@@ -26,7 +27,7 @@ namespace BirdGame
 
         public void Settings()
         {
-            _canvasManager.SwichCanvas(CanvasTypeEnum.Settings);
+            _canvasManager.SwitchCanvas(CanvasTypeEnum.Settings);
         }
 
         public void Quit()

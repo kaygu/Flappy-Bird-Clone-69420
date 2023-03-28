@@ -25,13 +25,25 @@ namespace BirdGame
 
             _canvasControllerList = GetComponentsInChildren<CanvasController>().ToList();
             _canvasControllerList.ForEach(x => DisableCanvas(x));
-            SwichCanvas(CanvasTypeEnum.Game);
+            SwitchCanvas(CanvasTypeEnum.BestScore);
         }
 
-        public void SwichCanvas(CanvasTypeEnum _type)
+        private void Update()
+        {
+            if (Manager.GameState == GameStateEnum.Waiting || Manager.GameState == GameStateEnum.Dead)
+            {
+                SwitchCanvas(CanvasTypeEnum.BestScore);
+            } else if (Manager.GameState == GameStateEnum.Flying)
+            {
+                SwitchCanvas(CanvasTypeEnum.Game);
+            }
+        }
+
+        public void SwitchCanvas(CanvasTypeEnum _type)
         {
             if (ActiveCanvas != null)
             {
+                if (ActiveCanvas.CanvasType == _type) return;
                 DisableCanvas(ActiveCanvas);
             }
             CanvasController desiredCanvas = _canvasControllerList.Find(x => x.CanvasType == _type);

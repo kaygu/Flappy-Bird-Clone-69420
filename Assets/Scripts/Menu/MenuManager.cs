@@ -6,9 +6,21 @@ namespace BirdGame
 {
     public class MenuManager : MonoBehaviour
     {
+        public static MenuManager Instance { get; private set; }
         private CanvasManager _canvasManager;
 
-    private void Start()
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Debug.LogError("Could not instantiate MenuManager Singleton");
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+        }
+
+        private void Start()
         {
             _canvasManager = CanvasManager.Instance;
         }
@@ -22,12 +34,11 @@ namespace BirdGame
                 {
                     if (_canvasManager.ActiveCanvas.CanvasType == CanvasTypeEnum.Settings)
                     {
-                        _canvasManager.SwichCanvas(CanvasTypeEnum.MainMenu);
+                        _canvasManager.SwitchCanvas(CanvasTypeEnum.MainMenu);
                     } 
                     else if (_canvasManager.ActiveCanvas.CanvasType == CanvasTypeEnum.MainMenu)
                     {
-                        Manager.GameState = Manager.PreviousGameState;
-                        _canvasManager.SwichCanvas(CanvasTypeEnum.Game);
+                        CloseMenu();
                     }
                     else
                     {
@@ -37,10 +48,22 @@ namespace BirdGame
                 } 
                 else
                 {
-                    Manager.GameState = GameStateEnum.Menu;
-                    _canvasManager.SwichCanvas(CanvasTypeEnum.MainMenu);
+                    OpenMenu();
                 }
             }
+        }
+
+        public void OpenMenu()
+        {
+            Manager.GameState = GameStateEnum.Menu;
+            _canvasManager.SwitchCanvas(CanvasTypeEnum.MainMenu);
+        }
+
+        public void CloseMenu()
+        {
+            Manager.GameState = Manager.PreviousGameState;
+            _canvasManager.SwitchCanvas(CanvasTypeEnum.Game);
+            PlayerPrefs.Save();
         }
     }
 }
