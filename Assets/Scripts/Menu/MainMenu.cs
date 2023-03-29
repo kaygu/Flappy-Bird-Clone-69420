@@ -15,6 +15,7 @@ namespace BirdGame
         }
         public void Resume()
         {
+            _menuManager.PlaySelectSound();
             if (Manager.GameState == GameStateEnum.Menu)
             {
                 _menuManager.CloseMenu();
@@ -27,11 +28,13 @@ namespace BirdGame
 
         public void Settings()
         {
+            _menuManager.PlaySelectSound();
             _canvasManager.SwitchCanvas(CanvasTypeEnum.Settings);
         }
 
         public void Quit()
         {
+            _menuManager.PlaySelectSound();
             Debug.Log("Quitting game");
         }
     }

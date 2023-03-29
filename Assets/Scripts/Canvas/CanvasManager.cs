@@ -12,6 +12,7 @@ namespace BirdGame
 
         private List<CanvasController> _canvasControllerList;
         public CanvasController ActiveCanvas;
+        
 
         private void Awake()
         {

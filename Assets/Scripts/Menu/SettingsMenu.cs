@@ -9,6 +9,7 @@ namespace BirdGame
     public class SettingsMenu : MonoBehaviour
     {
         private CanvasManager _canvasManager;
+        private MenuManager _menuManager;
         [SerializeField] private AudioMixer _mixer;
         [SerializeField] private Slider _sfxSlider;
         [SerializeField] private Slider _musicSlider;
@@ -17,6 +18,7 @@ namespace BirdGame
         private void Start()
         {
             _canvasManager = CanvasManager.Instance;
+            _menuManager = MenuManager.Instance;
             _sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", _defaultSliderValue);
             _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", _defaultSliderValue);
         }
@@ -24,6 +26,7 @@ namespace BirdGame
         public void Back()
         {
             // Back to main menu
+            _menuManager.PlaySelectSound();
             _canvasManager.SwitchCanvas(CanvasTypeEnum.MainMenu);
         }
 
