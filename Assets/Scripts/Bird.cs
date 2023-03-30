@@ -43,6 +43,7 @@ namespace BirdGame
                 {
                     case GameStateEnum.Waiting:
                         Manager.GameState = GameStateEnum.Flying;
+                        _anim.SetTrigger("flying");
                         break;
                     case GameStateEnum.Dead:
                         Manager.GameState = GameStateEnum.Waiting;
