@@ -11,11 +11,14 @@ namespace BirdGame
     {
         private Animator _anim;
         private AudioSource _deathSound;
+        [SerializeField] private CameraShake _cameraShake;
 
         [SerializeField] private TMP_Text _scoreString;
         [SerializeField] private TMP_Text _highScoreString;
         private int _score = 0;
         private int _oldHighScore;
+
+        private float _keyDelayOnDeath = 0;
 
 
         private void Awake()
@@ -29,6 +32,12 @@ namespace BirdGame
 
         private void Update()
         {
+            if (_keyDelayOnDeath > 0)
+            {
+                _keyDelayOnDeath -= Time.deltaTime;
+                return;
+            }
+            
             if (Manager.GameState == GameStateEnum.Flying)
             {
                 if (transform.position.y > 5f || transform.position.y < -5f)
@@ -85,6 +94,7 @@ namespace BirdGame
         private void Die()
         {
             Manager.GameState = GameStateEnum.Dead;
+            _keyDelayOnDeath = .6f;
             if (_score > _oldHighScore)
             {
                 _oldHighScore = _score;
@@ -93,6 +103,7 @@ namespace BirdGame
             SetHighscore();
             _deathSound.Play();
             _anim.SetTrigger("death");
+            StartCoroutine(_cameraShake.Shake(.1f, .2f));
         }
     }
 
