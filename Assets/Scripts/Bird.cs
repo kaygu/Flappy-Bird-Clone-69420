@@ -10,8 +10,9 @@ namespace BirdGame
     public class Bird : MonoBehaviour
     {
         private Animator _anim;
-        private AudioSource _deathSound;
+        private AudioSource _audioSource;
         [SerializeField] private CameraShake _cameraShake;
+        [SerializeField] private AudioClip _deathSound;
 
         [SerializeField] private TMP_Text _scoreString;
         [SerializeField] private TMP_Text _highScoreString;
@@ -25,7 +26,7 @@ namespace BirdGame
         {
             if (!Manager.Init()) return;
             _anim = GetComponent<Animator>();
-            _deathSound = GetComponent<AudioSource>();
+            _audioSource = GetComponent<AudioSource>();
             _oldHighScore = PlayerPrefs.GetInt("Highscore", 0);
             SetHighscore();
         }
@@ -101,7 +102,8 @@ namespace BirdGame
                 PlayerPrefs.SetInt("Highscore", _score);
             }
             SetHighscore();
-            _deathSound.Play();
+            _audioSource.clip = _deathSound;
+            _audioSource.Play();
             _anim.SetTrigger("death");
             StartCoroutine(_cameraShake.Shake(.1f, .2f));
         }

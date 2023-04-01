@@ -8,6 +8,8 @@ namespace BirdGame
     public class BirdMovement : MonoBehaviour
     {
         private Rigidbody2D _rb;
+        private AudioSource _audioSource;
+        [SerializeField] private AudioClip[] _flaps;
 
         private float jumpSpeed = 7f;
         private const float forwardVelocity = 5f;
@@ -15,6 +17,7 @@ namespace BirdGame
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _audioSource = GetComponent<AudioSource>();
 
         }
 
@@ -31,6 +34,8 @@ namespace BirdGame
                 if (Input.GetButtonDown("Jump"))
                 {
                     _rb.velocity = Vector2.up * jumpSpeed;
+                    _audioSource.clip = _flaps[Random.Range(0, _flaps.Length -1)];
+                    _audioSource.Play();
                 }
 
                 // Bird roatation
