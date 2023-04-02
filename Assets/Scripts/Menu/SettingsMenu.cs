@@ -32,13 +32,13 @@ namespace BirdGame
 
         public void  SFXSlider(float _volume)
         {
-            _mixer.SetFloat("MasterVolume", Mathf.Log10(_volume) * 20);
+            _mixer.SetFloat("MasterVolume", Mathf.Log10(_volume) * 20 + 5);
             PlayerPrefs.SetFloat("SFXVolume", _volume);
         }
 
         public void MusicSlider(float _volume)
         {
-            _mixer.SetFloat("MusicVolume", Mathf.Log10(_volume) * 20);
+            _mixer.SetFloat("MusicVolume", Mathf.Log10(_volume) * 20 + 5);
             PlayerPrefs.SetFloat("MusicVolume", _volume);
         }
     }

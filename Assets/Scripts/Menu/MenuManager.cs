@@ -9,6 +9,7 @@ namespace BirdGame
         public static MenuManager Instance { get; private set; }
         private CanvasManager _canvasManager;
         private AudioSource _buttonSelect;
+        private Animator _anim;
 
         private void Awake()
         {
@@ -25,6 +26,7 @@ namespace BirdGame
         {
             _canvasManager = CanvasManager.Instance;
             _buttonSelect = GetComponent<AudioSource>();
+            _anim = GetComponentInChildren<Animator>();
         }
 
 
@@ -59,13 +61,14 @@ namespace BirdGame
         {
             Manager.GameState = GameStateEnum.Menu;
             _canvasManager.SwitchCanvas(CanvasTypeEnum.MainMenu);
+            _anim.SetBool("MenuOpen", true);
         }
 
         public void CloseMenu()
         {
             Manager.GameState = Manager.PreviousGameState;
             _canvasManager.SwitchCanvas(CanvasTypeEnum.Game);
-            PlayerPrefs.Save();
+            _anim.SetBool("MenuOpen", false);
         }
 
         public void PlaySelectSound()
